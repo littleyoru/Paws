@@ -17,13 +17,116 @@ class MyApp extends StatelessWidget {
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
         home: Scaffold(
           appBar: AppBar(
-            title: Text('Pawesome app'),
+            title: Text('Paws'),
           ),
           body: Center(
-            child: Text('Welcome to an awesome Paws app'),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    ListTile(
+                      title: Text('Pet adoption'),
+                      leading: Icon(
+                        Icons.pets,
+                        color: createMaterialColor(Color(0xFF9E181C)),
+                      ),
+                    ),
+                    Container(
+                      height: 200,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Container(
+                            width: 200,
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(5.0),
+                                      ),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/graphics/test/Mjavse.jpeg'),
+                                          fit: BoxFit.cover),
+                                    ),
+                                    // child: Image.asset(
+                                    //   'assets/graphics/test/Mjavse.jpg',
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Icon(
+                                        MyIcons.male,
+                                        // color: createMaterialColor(
+                                        //     Color(0xFF9E181C)),
+                                      ),
+                                      Text('Mjavse'),
+                                      Text('Adult')
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 200,
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(5.0),
+                                      ),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/graphics/test/Tigress.PNG'),
+                                          fit: BoxFit.cover),
+                                    ),
+                                    // child: Image.asset(
+                                    //   'assets/graphics/test/Mjavse.jpg',
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Icon(
+                                        MyIcons.female,
+                                      ),
+                                      Text('Tigress'),
+                                      Text('Adult')
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Column()
+              ],
+            ),
           ),
+          bottomNavigationBar: BottomAppBar(),
         ));
   }
+}
+
+class MyIcons {
+  static const IconData male = IconData(0xF029D, fontFamily: 'MatIcons');
+  static const IconData female = IconData(0xF029C, fontFamily: 'MatIcons');
 }
 
 // class MyHomePage extends StatefulWidget {
