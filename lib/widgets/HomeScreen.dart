@@ -7,11 +7,11 @@ import './CustomAppBar.dart';
 import '../utils/helpers/color_helper.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key key, @required this.title, @required this.isLoggedIn})
-      : super(key: key);
-
   final String title;
   final bool isLoggedIn;
+
+  HomeScreen({Key? key, required this.title, required this.isLoggedIn})
+      : super(key: key);
 
   // @override
   // _HomeScreenState createState() => _HomeScreenState();

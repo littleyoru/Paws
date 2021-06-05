@@ -4,25 +4,26 @@ import 'package:paws/widgets/HomeScreen.dart';
 import '../utils/helpers/color_helper.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  CustomAppBar(
-      {Key key,
-      @required this.title,
-      @required this.isLoggedIn,
-      this.showBackButton})
-      : preferredSize = Size.fromHeight(50.0),
-        super(key: key);
   final String title;
   final bool isLoggedIn;
   final bool showBackButton;
   @override
   final Size preferredSize;
 
+  CustomAppBar(
+      {Key? key,
+      required this.title,
+      required this.isLoggedIn,
+      this.showBackButton = false})
+      : preferredSize = Size.fromHeight(50.0),
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title != null ? title : ''),
+      title: Text(title),
       centerTitle: true,
-      leading: showBackButton != null && showBackButton == true
+      leading: showBackButton
           ? IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context),
