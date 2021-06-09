@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:paws/constants/custom_colors.dart';
 import 'package:paws/core/auth/register/RegisterScreen.dart';
+import 'package:paws/core/auth/login/LoginScreen.dart';
 
 // theme
 import 'config/themes/custom_theme.dart';
+
+// models
+import 'core/auth/models/user_repository.dart';
 
 // utils
 import 'utils/helpers/color_helper.dart';
@@ -12,7 +17,12 @@ import 'utils/helpers/color_helper.dart';
 import 'widgets/HomeScreen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserRepository(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +46,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => HomeScreen(title: 'Paws', isLoggedIn: false),
+          '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen()
         },
       ),

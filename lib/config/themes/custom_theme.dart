@@ -19,3 +19,15 @@ TextStyle headingStyle() {
   return GoogleFonts.rancho(fontSize: 36.0);
   // 'arimaMadurai', 'caveatBrush', 'akayaKanadaka'
 }
+
+TextStyle bodyStyle() {
+  return TextStyle(color: CustomColors.secondary);
+}
+
+TextStyle linkStyle() {
+  return TextStyle(color: CustomColors.primarySwatch);
+}
+
+TextStyle infoStyle() {
+  return TextStyle(color: CustomColors.lightGray);
+}

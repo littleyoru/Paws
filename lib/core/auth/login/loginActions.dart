@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:paws/core/auth/register/registerResponse.dart';
 import 'dart:convert';
 import 'dart:io';
 import '../../../constants/api_path.dart';
+import 'loginResponse.dart';
 
-Future<RegisterResponse> registerUser(data) async {
-  // final response = await http.post(Uri.parse('$API_URL/user/register'));
-  final uri = Uri.parse('$API_URL/user/register');
+Future<LoginResponse> loginUser(data) async {
+  final uri = Uri.parse('$API_URL/user/login');
   var body = json.encode(data);
   final response = await http.post(uri,
       headers: {
@@ -19,9 +18,11 @@ Future<RegisterResponse> registerUser(data) async {
 
   if (response.statusCode == 200) {
     debugPrint('response body data: ${response.body}');
+    debugPrint('response headers: ${response.headers}');
     final responseJson = jsonDecode(response.body);
-    final registerResponse = RegisterResponse.fromJson(responseJson);
-    return registerResponse;
+    final loginResponse = LoginResponse.fromJson(responseJson);
+    debugPrint('login response parsed: $loginResponse');
+    return loginResponse;
   } else {
     throw Exception('Failure in the api');
   }

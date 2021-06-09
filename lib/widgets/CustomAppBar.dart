@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paws/core/auth/register/RegisterScreen.dart';
-import 'package:paws/widgets/HomeScreen.dart';
+import 'package:paws/core/auth/login/LoginScreen.dart';
 import '../utils/helpers/color_helper.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -38,7 +37,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RegisterScreen(),
+              builder: (context) => LoginScreen(),
             ),
           ),
         ),

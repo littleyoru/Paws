@@ -1,37 +1,35 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'dart:developer';
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:paws/core/auth/register/RegisterScreen.dart';
 
 // theme
 import '../../../config/themes/custom_theme.dart';
 
 // models
-import 'RegisterForm.dart';
+import 'LoginForm.dart';
 
 // actions
-import 'registerActions.dart';
+import 'loginActions.dart';
 
 // widgets
 import '../../../widgets/CustomAppBar.dart';
 
-class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => RegisterScreenState();
+  State<LoginScreen> createState() => LoginScreenState();
 }
 
-class RegisterScreenState extends State<RegisterScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  var formData =
-      new RegisterForm(name: '', email: '', password: '', repeatPass: '');
+  var formData = new LoginForm(email: '', password: '');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: '',
+        title: 'Log in',
         isLoggedIn: false,
         showBackButton: true,
       ),
@@ -40,7 +38,7 @@ class RegisterScreenState extends State<RegisterScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Sign up',
+              'Welcome!',
               style: headingStyle(),
             ),
             Container(
@@ -50,19 +48,6 @@ class RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    TextFormField(
-                      onSaved: (String? value) => {formData.name = value ?? ''},
-                      decoration: const InputDecoration(hintText: 'Full Name'),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
                     TextFormField(
                       onSaved: (String? value) =>
                           {formData.email = value ?? ''},
@@ -98,24 +83,6 @@ class RegisterScreenState extends State<RegisterScreen> {
                       obscureText: true,
                     ),
                     SizedBox(
-                      height: 20.0,
-                    ),
-                    TextFormField(
-                      onSaved: (String? value) =>
-                          {formData.repeatPass = value ?? ''},
-                      decoration:
-                          const InputDecoration(hintText: 'Repeat password'),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password again';
-                        }
-                        return null;
-                      },
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      obscureText: true,
-                    ),
-                    SizedBox(
                       height: 40.0,
                     ),
                     SizedBox(
@@ -130,10 +97,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                             debugPrint('form data: $formData');
                             var data = formData.toJson();
                             debugPrint('form data: $data');
-                            registerUser(data)
+                            loginUser(data)
                                 .then((res) => Navigator.pop(context))
-                                .catchError((err) => debugPrint(
-                                    'Error at creating account $err'));
+                                .catchError(
+                                    (err) => debugPrint('Error at login $err'));
                             // registerUser(formData)
                             //     .then((res) => {
                             //           log('response data: ${res.body}')
@@ -142,39 +109,36 @@ class RegisterScreenState extends State<RegisterScreen> {
                             //     .catchError((err) => log('error from api $err'));
                           }
                         },
-                        child: const Text('Create account'),
+                        child: const Text('Log in'),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            Column(
-              children: <Widget>[
-                RichText(
-                  text: TextSpan(style: infoStyle(), children: <TextSpan>[
-                    TextSpan(text: 'By creating an account, you agree to our '),
-                    TextSpan(
-                        text: 'Terms',
-                        style: linkStyle(),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            print('Terms of Service');
-                          }),
-                  ]),
-                ),
-                RichText(
-                  text: TextSpan(style: infoStyle(), children: <TextSpan>[
-                    TextSpan(text: 'Already have an account? '),
-                    TextSpan(
-                        text: 'Sign in',
-                        style: linkStyle(),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => Navigator.pop(context)),
-                  ]),
-                ),
-              ],
-            )
+            Text(
+              'Forgot password?',
+              style: linkStyle(),
+            ),
+            RichText(
+              text: TextSpan(
+                style: infoStyle(),
+                children: <TextSpan>[
+                  TextSpan(text: 'Dont have an account? '),
+                  TextSpan(
+                    text: 'Sign up here',
+                    style: linkStyle(),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RegisterScreen(),
+                            ),
+                          ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
