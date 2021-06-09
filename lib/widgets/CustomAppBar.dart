@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paws/core/auth/RegisterScreen.dart';
+import 'package:paws/core/auth/register/RegisterScreen.dart';
 import 'package:paws/widgets/HomeScreen.dart';
 import '../utils/helpers/color_helper.dart';
 

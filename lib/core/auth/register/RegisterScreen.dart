@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
+import 'dart:convert';
 
 // theme
-import '../../config/themes/custom_theme.dart';
+import '../../../config/themes/custom_theme.dart';
+
+// models
+import 'RegisterForm.dart';
+
+// actions
+import 'registerActions.dart';
 
 // widgets
-import '../../widgets/CustomAppBar.dart';
+import '../../../widgets/CustomAppBar.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -15,6 +23,8 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var formData =
+      new RegisterForm(name: '', email: '', password: '', repeatPass: '');
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +50,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
+                      onSaved: (String? value) => {formData.name = value ?? ''},
                       decoration: const InputDecoration(hintText: 'Full Name'),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
@@ -52,10 +63,18 @@ class RegisterScreenState extends State<RegisterScreen> {
                       height: 20.0,
                     ),
                     TextFormField(
+                      onSaved: (String? value) =>
+                          {formData.email = value ?? ''},
                       decoration: const InputDecoration(hintText: 'Email'),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
+                        }
+                        if (!value.contains('@')) {
+                          return 'Email is invalid, must contain @';
+                        }
+                        if (!value.contains('.')) {
+                          return 'Email is invalid, must contain .';
                         }
                         return null;
                       },
@@ -64,6 +83,8 @@ class RegisterScreenState extends State<RegisterScreen> {
                       height: 20.0,
                     ),
                     TextFormField(
+                      onSaved: (String? value) =>
+                          {formData.password = value ?? ''},
                       decoration: const InputDecoration(hintText: 'Password'),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
@@ -79,6 +100,8 @@ class RegisterScreenState extends State<RegisterScreen> {
                       height: 20.0,
                     ),
                     TextFormField(
+                      onSaved: (String? value) =>
+                          {formData.repeatPass = value ?? ''},
                       decoration:
                           const InputDecoration(hintText: 'Repeat password'),
                       validator: (String? value) {
@@ -99,7 +122,17 @@ class RegisterScreenState extends State<RegisterScreen> {
                         // Validate will return true if the form is valid, or false if the form is invalid
                         if (_formKey.currentState!.validate()) {
                           // Process data
-                          Navigator.pop(context);
+                          _formKey.currentState?.save();
+                          debugPrint('form data: $formData');
+                          var data = formData.toJson();
+                          debugPrint('form data: $data');
+                          registerUser(data);
+                          // registerUser(formData)
+                          //     .then((res) => {
+                          //           log('response data: ${res.body}')
+                          //           //Navigator.pop(context)
+                          //         })
+                          //     .catchError((err) => log('error from api $err'));
                         }
                       },
                       child: const Text('Create account'),

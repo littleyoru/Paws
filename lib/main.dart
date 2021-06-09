@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paws/constants/custom_colors.dart';
-import 'package:paws/core/auth/RegisterScreen.dart';
+import 'package:paws/core/auth/register/RegisterScreen.dart';
 
 // theme
 import 'config/themes/custom_theme.dart';
