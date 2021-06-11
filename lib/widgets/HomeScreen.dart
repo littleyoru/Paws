@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: title,
         isLoggedIn: isLoggedIn,
+        showLogout: true,
       ),
       body: Center(
         child: Column(

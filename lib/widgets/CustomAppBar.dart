@@ -6,6 +6,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool isLoggedIn;
   final bool showBackButton;
+  final bool showLogout;
   @override
   final Size preferredSize;
 
@@ -13,36 +14,38 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       {Key? key,
       required this.title,
       required this.isLoggedIn,
-      this.showBackButton = false})
+      this.showBackButton = false,
+      this.showLogout = false})
       : preferredSize = Size.fromHeight(50.0),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
-      centerTitle: true,
-      leading: showBackButton
-          ? IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            )
-          : null,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            isLoggedIn ? Icons.settings : Icons.account_circle,
-            color: createMaterialColor(Color(0xFF38261F)),
-          ),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
-            ),
-          ),
-        ),
-      ],
-    );
+        title: Text(title),
+        centerTitle: true,
+        leading: showBackButton
+            ? IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              )
+            : null,
+        actions: showLogout
+            ? <Widget>[
+                IconButton(
+                  icon: Icon(
+                    isLoggedIn ? Icons.settings : Icons.account_circle,
+                    color: createMaterialColor(Color(0xFF38261F)),
+                  ),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    ),
+                  ),
+                ),
+              ]
+            : null);
   }
 }
 

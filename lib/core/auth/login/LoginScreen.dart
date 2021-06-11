@@ -13,6 +13,7 @@ import 'loginActions.dart';
 
 // widgets
 import '../../../widgets/CustomAppBar.dart';
+import '../../../widgets/HomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class LoginScreenState extends State<LoginScreen> {
       appBar: CustomAppBar(
         title: 'Log in',
         isLoggedIn: false,
-        showBackButton: true,
+        showBackButton: false,
       ),
       body: Center(
         child: Column(
@@ -98,7 +99,13 @@ class LoginScreenState extends State<LoginScreen> {
                             var data = formData.toJson();
                             debugPrint('form data: $data');
                             loginUser(data)
-                                .then((res) => Navigator.pop(context))
+                                .then((res) => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomeScreen(
+                                            title: 'Paws', isLoggedIn: true),
+                                      ),
+                                    ))
                                 .catchError(
                                     (err) => debugPrint('Error at login $err'));
                             // registerUser(formData)
