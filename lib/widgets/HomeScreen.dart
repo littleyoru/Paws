@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 
+// constants
+import '../constants/app_icons.dart';
+
 // widgets
 import './CustomAppBar.dart';
+import './MainNavigationBar.dart';
 
 // utils
 import '../utils/helpers/color_helper.dart';
 
 class HomeScreen extends StatelessWidget {
-  final String title;
-  final bool isLoggedIn;
+  // final String title;
+  // final bool isLoggedIn;
+  final VoidCallback onLogout;
 
-  HomeScreen({Key? key, required this.title, required this.isLoggedIn})
-      : super(key: key);
+  HomeScreen({Key? key, required this.onLogout}) : super(key: key);
 
-  // @override
-  // _HomeScreenState createState() => _HomeScreenState();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: title,
-        isLoggedIn: isLoggedIn,
+        title: 'Paws',
+        isLoggedIn: true,
         showLogout: true,
+        onLogout: onLogout,
       ),
       body: Center(
         child: Column(
@@ -66,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Icon(
-                                    MyIcons.male,
+                                    AppIcons.male,
                                     // color: createMaterialColor(
                                     //     Color(0xFF9E181C)),
                                   ),
@@ -104,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Icon(
-                                    MyIcons.female,
+                                    AppIcons.female,
                                   ),
                                   Text('Tigress'),
                                   Text('Adult')
