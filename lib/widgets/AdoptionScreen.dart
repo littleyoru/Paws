@@ -5,7 +5,10 @@ import 'AdoptPetCard.dart';
 import './MainNavigationBar.dart';
 
 class AdoptionScreen extends StatelessWidget {
-  AdoptionScreen({Key? key}) : super(key: key);
+  final int? selectedIndex;
+  final ValueChanged<int> onTap;
+  AdoptionScreen({Key? key, required this.onTap, required this.selectedIndex})
+      : super(key: key);
 
   // final List<Pet> items;
 

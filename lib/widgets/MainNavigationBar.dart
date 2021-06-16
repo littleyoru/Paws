@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
 import 'AdoptionScreen.dart';
 
-class MainNavigationBar extends StatefulWidget {
-  @override
-  State<MainNavigationBar> createState() => MainNavigationBarState();
-  //MainNavigationBar({Key? key}) : super(key: key);
-}
+class MainNavigationBar extends StatelessWidget {
+  MainNavigationBar(
+      {Key? key, required this.selectedIndex, required this.onTap})
+      : super(key: key);
+  // final List<Widget> pages = [
+  //   // HomeScreen(key: PageStorageKey('Home')),
+  //   AdoptionScreen(key: PageStorageKey('Adoption')),
+  // ];
 
-class MainNavigationBarState extends State<MainNavigationBar> {
-  final List<Widget> pages = [
-    // HomeScreen(key: PageStorageKey('Home')),
-    AdoptionScreen(key: PageStorageKey('Adoption')),
-  ];
-
-  final PageStorageBucket bucket = PageStorageBucket();
-
-  int _selectedIndex = 0;
+  final int selectedIndex;
+  final ValueChanged<int> onTap;
 
   Widget _mainNavigationBar(int selectedIndex) => BottomNavigationBar(
-        onTap: (int index) => setState(() => _selectedIndex = index),
-        currentIndex: selectedIndex,
+        onTap: (int index) => this.onTap(index),
+        currentIndex: this.selectedIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
@@ -31,17 +27,11 @@ class MainNavigationBarState extends State<MainNavigationBar> {
           BottomNavigationBarItem(
               icon: Icon(Icons.pets_rounded), label: 'Pet profiles')
         ],
-        // onTap: () {},
+        // onTap: (inx) {appState.selectedIndex = inx;},
       );
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _mainNavigationBar(_selectedIndex),
-      body: PageStorage(
-        bucket: bucket,
-        child: pages[_selectedIndex],
-      ),
-    );
+    return _mainNavigationBar(selectedIndex);
   }
 }

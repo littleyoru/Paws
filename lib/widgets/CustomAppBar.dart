@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:paws/core/auth/login/LoginScreen.dart';
 import '../utils/helpers/color_helper.dart';
+import 'ProfileScreen.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool isLoggedIn;
   final bool showBackButton;
   final bool showLogout;
+  // final VoidCallback? onLogout;
   @override
   final Size preferredSize;
 
@@ -33,23 +34,19 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         actions: showLogout
             ? <Widget>[
                 IconButton(
-                  icon: Icon(
-                    isLoggedIn ? Icons.settings : Icons.account_circle,
-                    color: createMaterialColor(Color(0xFF38261F)),
-                  ),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
+                    icon: Icon(
+                      isLoggedIn ? Icons.settings : Icons.account_circle,
+                      color: createMaterialColor(Color(0xFF38261F)),
                     ),
-                  ),
-                ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(),
+                        ),
+                      );
+                    }),
               ]
             : null);
   }
-}
-
-class MyIcons {
-  static const IconData male = IconData(0xF029D, fontFamily: 'MatIcons');
-  static const IconData female = IconData(0xF029C, fontFamily: 'MatIcons');
 }

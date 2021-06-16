@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:paws/state/user_repository.dart';
 import 'package:paws/core/auth/register/RegisterScreen.dart';
+import 'package:provider/provider.dart';
 
 // theme
 import '../../../config/themes/custom_theme.dart';
@@ -17,7 +19,6 @@ import '../../../widgets/HomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
-
   @override
   State<LoginScreen> createState() => LoginScreenState();
 }
@@ -28,6 +29,8 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //final user = context.watch<UserRepository>();
+    final user = Provider.of<UserRepository>(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Log in',
@@ -89,35 +92,35 @@ class LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       width: double.infinity,
                       height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Validate will return true if the form is valid, or false if the form is invalid
-                          if (_formKey.currentState!.validate()) {
-                            // Process data
-                            _formKey.currentState?.save();
-                            debugPrint('form data: $formData');
-                            var data = formData.toJson();
-                            debugPrint('form data: $data');
-                            loginUser(data)
-                                .then((res) => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => HomeScreen(
-                                            title: 'Paws', isLoggedIn: true),
-                                      ),
-                                    ))
-                                .catchError(
-                                    (err) => debugPrint('Error at login $err'));
-                            // registerUser(formData)
-                            //     .then((res) => {
-                            //           log('response data: ${res.body}')
-                            //           //Navigator.pop(context)
-                            //         })
-                            //     .catchError((err) => log('error from api $err'));
-                          }
-                        },
-                        child: const Text('Log in'),
-                      ),
+                      child: user.status == Status.Authenticating
+                          ? Text('Logging in...')
+                          : ElevatedButton(
+                              onPressed: () async {
+                                // Validate will return true if the form is valid, or false if the form is invalid
+                                if (_formKey.currentState!.validate()) {
+                                  // Process data
+                                  _formKey.currentState?.save();
+                                  debugPrint('form data: $formData');
+                                  var data = formData.toJson();
+                                  debugPrint('form data: $data');
+                                  final result = await user.signIn(data);
+                                  if (result == true) {
+                                    debugPrint('login successful');
+                                  } else {
+                                    debugPrint('login failed');
+                                  }
+                                  // if (result == true) onLogin();
+                                  // loginUser(data)
+                                  //     .then(
+                                  //       (res) =>
+                                  //           Navigator.pushNamed(context, '/home'),
+                                  //     )
+                                  //     .catchError(
+                                  //         (err) => debugPrint('Error at login $err'));
+                                }
+                              },
+                              child: const Text('Log in'),
+                            ),
                     ),
                   ],
                 ),

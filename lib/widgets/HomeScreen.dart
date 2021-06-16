@@ -13,9 +13,12 @@ import '../utils/helpers/color_helper.dart';
 class HomeScreen extends StatelessWidget {
   // final String title;
   // final bool isLoggedIn;
-  final VoidCallback onLogout;
+  // final VoidCallback onLogout;
+  final int? selectedIndex;
+  final ValueChanged<int> onTap;
 
-  HomeScreen({Key? key, required this.onLogout}) : super(key: key);
+  HomeScreen({Key? key, required this.onTap, required this.selectedIndex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,6 @@ class HomeScreen extends StatelessWidget {
         title: 'Paws',
         isLoggedIn: true,
         showLogout: true,
-        onLogout: onLogout,
       ),
       body: Center(
         child: Column(

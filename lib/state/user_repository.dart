@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'User.dart';
-import '../login/loginActions.dart';
+import '../core/auth/login/loginActions.dart';
 
 const String _AUTH_KEY = 'AuthKey';
 
@@ -12,22 +11,31 @@ class UserRepository with ChangeNotifier {
   Status _status = Status.Uninitialized;
   String _token = '';
   // SharedPreferences? preference;
-  // UserRepository();
+  UserRepository();
 
   Status get status => _status;
   // User? get authUser => _user;
   String get token => _token;
 
+  set status(Status value) {
+    if (value != _status) {
+      _status = value;
+      notifyListeners();
+    }
+  }
+
   Future init() async {
     var pref = await SharedPreferences.getInstance();
     String token = pref.getString(_AUTH_KEY) ?? '';
+    debugPrint('token from memory: $token');
     _token = token;
+    status = token.isEmpty ? Status.Unauthenticated : Status.Authenticated;
+    debugPrint('user status after token get: $status');
+    debugPrint('user _status after token get: $_status');
+    notifyListeners();
   }
 
-  // bool isUserLoggedIn() {
-  //   return _token.isNotEmpty ? true : false;
-  // }
-
+  // set token in storage
   Future<bool> setToken(String token) async {
     var pref = await SharedPreferences.getInstance();
     pref.setString(_AUTH_KEY, token).then((value) {
@@ -40,6 +48,7 @@ class UserRepository with ChangeNotifier {
     return false;
   }
 
+  // delete token from storage
   Future<bool> deleteToken() async {
     var pref = await SharedPreferences.getInstance();
     pref.setString(_AUTH_KEY, '').then((value) {
