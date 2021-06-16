@@ -11,14 +11,7 @@ import './MainNavigationBar.dart';
 import '../utils/helpers/color_helper.dart';
 
 class HomeScreen extends StatelessWidget {
-  // final String title;
-  // final bool isLoggedIn;
-  // final VoidCallback onLogout;
-  final int? selectedIndex;
-  final ValueChanged<int> onTap;
-
-  HomeScreen({Key? key, required this.onTap, required this.selectedIndex})
-      : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +112,42 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Container(
+                        width: 200,
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(5.0),
+                                  ),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/graphics/test/Godzira.PNG'),
+                                      fit: BoxFit.cover),
+                                ),
+                                // child: Image.asset(
+                                //   'assets/graphics/test/Mjavse.jpg',
+                                //   fit: BoxFit.cover,
+                                // ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Icon(
+                                    AppIcons.female,
+                                  ),
+                                  Text('Godzira'),
+                                  Text('Young')
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -128,7 +157,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(),
+      bottomNavigationBar: MainNavigationBar(),
     );
   }
 }

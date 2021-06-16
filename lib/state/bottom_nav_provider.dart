@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class BottomNavigatorProvider with ChangeNotifier {
-  int? _selectedIndex;
+  int? _selectedIndex = 0;
   int? get selectedIndex => _selectedIndex;
 
   set selectedIndex(int? value) {
@@ -11,8 +11,8 @@ class BottomNavigatorProvider with ChangeNotifier {
     }
   }
 
-  void onTap(int value) {
-    _selectedIndex = value;
+  onTap(int value) {
+    selectedIndex = value;
     notifyListeners();
   }
 

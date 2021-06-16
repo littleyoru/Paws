@@ -5,10 +5,7 @@ import 'AdoptPetCard.dart';
 import './MainNavigationBar.dart';
 
 class AdoptionScreen extends StatelessWidget {
-  final int? selectedIndex;
-  final ValueChanged<int> onTap;
-  AdoptionScreen({Key? key, required this.onTap, required this.selectedIndex})
-      : super(key: key);
+  AdoptionScreen({Key? key}) : super(key: key);
 
   // final List<Pet> items;
 
@@ -70,7 +67,7 @@ class AdoptionScreen extends StatelessWidget {
         //   ],
         // ),
       ),
-      bottomNavigationBar: BottomAppBar(),
+      bottomNavigationBar: MainNavigationBar(),
     );
   }
 }

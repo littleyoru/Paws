@@ -24,15 +24,23 @@ class UserRepository with ChangeNotifier {
     }
   }
 
-  Future init() async {
+  set token(String value) {
+    if (value != _token) {
+      _token = value;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> init() async {
     var pref = await SharedPreferences.getInstance();
-    String token = pref.getString(_AUTH_KEY) ?? '';
+    String tkn = pref.getString(_AUTH_KEY) ?? '';
     debugPrint('token from memory: $token');
-    _token = token;
-    status = token.isEmpty ? Status.Unauthenticated : Status.Authenticated;
+    token = tkn;
+    status = tkn.isEmpty ? Status.Unauthenticated : Status.Authenticated;
     debugPrint('user status after token get: $status');
     debugPrint('user _status after token get: $_status');
     notifyListeners();
+    return true;
   }
 
   // set token in storage
@@ -63,30 +71,36 @@ class UserRepository with ChangeNotifier {
 
   Future<bool> signIn(data) async {
     try {
-      _status = Status.Authenticating;
+      status = Status.Authenticating;
       notifyListeners();
       var res = await loginUser(data);
       debugPrint('res token $res');
-      _status = Status.Authenticated;
-      _token = res;
+      status = Status.Authenticated;
+      token = res;
       notifyListeners();
-      debugPrint('user status $_status');
+      debugPrint('user status $status');
       var isTokenSaved = await setToken(res);
       // _user = res.user;
       // _token = res.token;
+      debugPrint('user status $isTokenSaved');
       return isTokenSaved;
     } catch (err) {
-      _status = Status.Unauthenticated;
+      status = Status.Unauthenticated;
       notifyListeners();
       return false;
     }
   }
 
   Future<bool> logout() async {
-    var res = await deleteToken();
-    _status = Status.Unauthenticated;
-    _token = '';
-    notifyListeners();
-    return res;
+    try {
+      var res = await deleteToken();
+      status = Status.Unauthenticated;
+      token = '';
+      notifyListeners();
+      return res;
+    } catch (err) {
+      debugPrint('error in log out function $err');
+      return false;
+    }
   }
 }

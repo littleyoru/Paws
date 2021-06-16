@@ -99,19 +99,9 @@ class PawsAppRouterDelegate extends RouterDelegate<MainRoutePath>
 
   List<MaterialPage> get _loggedInStack {
     return [
-      MaterialPage(
-          key: ValueKey('Home'),
-          child: HomeScreen(
-            onTap: bottomNavState.onTap,
-            selectedIndex: bottomNavState.selectedIndex,
-          )),
+      MaterialPage(key: ValueKey('Home'), child: HomeScreen()),
       if (bottomNavState.selectedIndex == 1)
-        MaterialPage(
-            key: ValueKey('Adoption'),
-            child: AdoptionScreen(
-              onTap: bottomNavState.onTap,
-              selectedIndex: bottomNavState.selectedIndex,
-            )),
+        MaterialPage(key: ValueKey('Adoption'), child: AdoptionScreen()),
       // MaterialPage(key: ValueKey('Profile'), child: ProfileScreen()),
     ];
   }
