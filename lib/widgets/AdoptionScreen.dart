@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './CustomAppBar.dart';
 import 'AdoptPetCard.dart';
 import './MainNavigationBar.dart';
+import './TempBottomBar.dart';
 
 class AdoptionScreen extends StatelessWidget {
   AdoptionScreen({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class AdoptionScreen extends StatelessWidget {
         //   ],
         // ),
       ),
-      bottomNavigationBar: MainNavigationBar(),
+      bottomNavigationBar: TempBottomBar(),
     );
   }
 }
