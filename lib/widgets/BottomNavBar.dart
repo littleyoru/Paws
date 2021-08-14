@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:paws/state/bottom_nav_provider.dart';
 import '../constants/custom_colors.dart';
 
-class TempBottomBar extends StatelessWidget {
-  TempBottomBar({Key? key}) : super(key: key);
+class BottomNavBar extends StatelessWidget {
+  BottomNavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

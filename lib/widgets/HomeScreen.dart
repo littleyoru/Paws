@@ -6,7 +6,7 @@ import '../constants/app_icons.dart';
 // widgets
 import './CustomAppBar.dart';
 import './MainNavigationBar.dart';
-import './TempBottomBar.dart';
+import 'BottomNavBar.dart';
 
 // utils
 import '../utils/helpers/color_helper.dart';
@@ -158,7 +158,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: TempBottomBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

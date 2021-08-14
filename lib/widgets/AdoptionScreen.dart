@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import './CustomAppBar.dart';
 import 'AdoptPetCard.dart';
 import './MainNavigationBar.dart';
-import './TempBottomBar.dart';
+import 'BottomNavBar.dart';
+import '../constants/custom_colors.dart';
 
 class AdoptionScreen extends StatelessWidget {
   AdoptionScreen({Key? key}) : super(key: key);
@@ -18,38 +19,55 @@ class AdoptionScreen extends StatelessWidget {
         isLoggedIn: true,
       ),
       body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(8),
+        child: Column(
           children: <Widget>[
-            AdoptPetCard(
-              name: 'Mjavse',
-              age: 'Adult',
-              gender: 'M',
-              imageUrl: 'assets/graphics/test/Mjavse.jpeg',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ListTile(
+                  title: Text('Add pet'),
+                  leading: Icon(Icons.add, color: CustomColors.primarySwatch),
+                ),
+                ListTile(
+                  title: Text('Own pets'),
+                  leading: Icon(Icons.pets, color: CustomColors.primarySwatch),
+                ),
+              ],
             ),
-            AdoptPetCard(
-              name: 'Tigress',
-              age: 'Adult',
-              gender: 'F',
-              imageUrl: 'assets/graphics/test/Tigress.PNG',
-            ),
-            AdoptPetCard(
-              name: 'Beethoven',
-              age: 'Senior',
-              gender: 'M',
-              imageUrl: 'assets/graphics/test/Beethoven.jpeg',
-            ),
-            AdoptPetCard(
-              name: 'Shen-zin Su',
-              age: 'Adult',
-              gender: 'M',
-              imageUrl: 'assets/graphics/test/Shen-zin_Su.jpeg',
-            ),
-            AdoptPetCard(
-              name: 'Godzira',
-              age: 'Young',
-              gender: 'F',
-              imageUrl: 'assets/graphics/test/Godzira.PNG',
+            ListView(
+              padding: const EdgeInsets.all(16),
+              children: <Widget>[
+                AdoptPetCard(
+                  name: 'Mjavse',
+                  age: 'Adult',
+                  gender: 'M',
+                  imageUrl: 'assets/graphics/test/Mjavse.jpeg',
+                ),
+                AdoptPetCard(
+                  name: 'Tigress',
+                  age: 'Adult',
+                  gender: 'F',
+                  imageUrl: 'assets/graphics/test/Tigress.PNG',
+                ),
+                AdoptPetCard(
+                  name: 'Beethoven',
+                  age: 'Senior',
+                  gender: 'M',
+                  imageUrl: 'assets/graphics/test/Beethoven.jpeg',
+                ),
+                AdoptPetCard(
+                  name: 'Shen-zin Su',
+                  age: 'Adult',
+                  gender: 'M',
+                  imageUrl: 'assets/graphics/test/Shen-zin_Su.jpeg',
+                ),
+                AdoptPetCard(
+                  name: 'Godzira',
+                  age: 'Young',
+                  gender: 'F',
+                  imageUrl: 'assets/graphics/test/Godzira.PNG',
+                ),
+              ],
             ),
           ],
         ),
@@ -68,7 +86,7 @@ class AdoptionScreen extends StatelessWidget {
         //   ],
         // ),
       ),
-      bottomNavigationBar: TempBottomBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
