@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../constants/app_icons.dart';
 
+// utils
+import '../utils/helpers/color_helper.dart';
+
 class AdoptPetCard extends StatelessWidget {
   AdoptPetCard(
       {Key? key,
@@ -36,18 +39,26 @@ class AdoptPetCard extends StatelessWidget {
               //   fit: BoxFit.cover,
               // ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(
-                  gender == 'M' ? AppIcons.male : AppIcons.female,
-                  // color: createMaterialColor(
-                  //     Color(0xFF9E181C)),
-                ),
-                Text('$name'),
-                Text('$age')
-              ],
-            )
+            Container(
+              color: createMaterialColor(Color(0xFF9E181C)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Icon(
+                    gender == 'M' ? AppIcons.male : AppIcons.female,
+                    color: createMaterialColor(Color(0xFFFFFFFF)),
+                  ),
+                  Text(
+                    '$name',
+                    style: const TextStyle(color: Color(0xFFFFFFFF)),
+                  ),
+                  Text(
+                    '$age',
+                    style: const TextStyle(color: Color(0xFFFFFFFF)),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
